@@ -1,11 +1,13 @@
 package com.first.spring.data.jpa.tutorial.Repository;
 
 import com.first.spring.data.jpa.tutorial.Entity.Student;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,4 +55,15 @@ public interface StudentRepository extends CrudRepository<Student,Long> {
     List<Student> getTheNameBasedOnEmailNativeParamQuery( @Param("emailid") String emailStudent);
 
 
+    // All the methods that we have used or made above are used to make fetch data
+    // Now we are going to make function that will Provide Transaction control / Modify data in table.
+
+    @Modifying // to tell that we are going to modify the data in table
+    @Transactional
+    @Query(
+            value = "Update tbl_student set first_name = ?1 where email_address = ?2",
+            nativeQuery = true
+    )
+    int updateStudentNameByEmailId( String firstName ,
+                                    String emailId);
 }

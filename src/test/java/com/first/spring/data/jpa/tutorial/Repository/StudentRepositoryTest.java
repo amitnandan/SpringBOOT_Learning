@@ -70,4 +70,10 @@ class StudentRepositoryTest {
         List<Student> students =  StudentRepo.getTheNameBasedOnEmailNativeParamQuery("a.amitnandan@gmail.com");
         System.out.println("STUDENTS"+students);
     }
+    @Test
+    public  void updateStudentEmailId()
+    {
+        StudentRepo.updateStudentNameByEmailId("Rahul Raj" , "R@gmail.com");
+    }
+
 }
